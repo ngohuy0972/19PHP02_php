@@ -52,7 +52,7 @@
 			}
 			return number_format($money,0,",",".");;
 		}
-		//hàm isset dung de kiem tra mot bien da khoi taoj trong bo nho hay chua
+		//hàm isset dung de kiem tra mot bien da khoi tao trong bo nho hay chua
 		//neu ton tai thi tra ve TRUE, nguoc lai tra ve FALSE
 		if (isset($_POST['submit'])) {
 			$name = $_POST['name'];

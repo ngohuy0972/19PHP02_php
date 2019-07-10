@@ -1,0 +1,38 @@
+.container {
+	margin: 0 auto;
+	width: 1200px;
+}
+.products_table {
+	margin: auto;
+	padding: 25px;
+	width: 500px;
+	height: 630px;
+	border: 1px solid black;
+}
+h1 {
+	text-align: center;
+}
+.form_name {
+	font-size: 18px;
+	font-weight: bold;
+	width: 450px;
+	float: left;
+}
+.category_id, .title, .description, .price {
+	width: 400px;
+	float: left;
+	margin-bottom: -20px;
+}
+.submit {
+	width: 110px;
+	height: 35px;
+	font-size: 18px;
+	float: left;
+	margin-top: 20px;
+}
+.error {
+	display: block;
+	color :red;
+	float: left;
+	width: 400px;
+}

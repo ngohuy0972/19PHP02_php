@@ -1,0 +1,12 @@
+body {
+	margin:0 auto;
+	width: 1200px;
+}
+table, th, td{
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    padding-left: 50px;
+}
+table{
+    border-collapse:collapse;
+}
