@@ -56,7 +56,7 @@
 	 <div class="container">
 	 	<div class="products_table">
 	 		<h1>BẢNG NHẬP THÔNG TIN SẢN PHẨM</h1>
-	 		<form action="#" method="post" accept-charset="utf-8">
+	 		<form action="#" method="post">
 				<p class="form_name">Category ID :
 					<input class="category_id" type="text" name="CategoryID" value="<?php echo $category_id?>">
 				</p>

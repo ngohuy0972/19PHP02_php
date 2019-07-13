@@ -38,7 +38,7 @@
 		 	<td><?php echo $products['category_id'] ?></td>
 		 	<td><?php echo $products['title'] ?></td>
 		 	<td><?php echo $products['description'] ?></td>
-		 	<td><img src="uploads/<?php echo $products['image'] ?>"></td>
+		 	<td><img src="../uploads/<?php echo $products['image']?>"></td>
 		 	<td><?php echo $products['price'] ?></td>
 		 	<td><?php echo $products['created'] ?></td>
 		 	<td>
