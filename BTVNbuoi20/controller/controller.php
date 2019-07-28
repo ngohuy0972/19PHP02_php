@@ -27,6 +27,11 @@
 					if (isset($_POST['add_user'])) {
 						$username = $_POST['username'];
 						$password = $_POST['password'];
+						$avatar = "default.png";
+						if($_FILES['$avatar']['error'] == 0) {
+							$avatar = $_FILES['$avatar']['name'];
+							move_uploaded_file($_FILES['$avatar']['tmp_name'], 'uploads/user'.$avatar);
+						}
 						$model = new Model();
 						if ($model->addUser($username, $password) === TRUE) {
 							header("Location: index.php?action=user");
@@ -45,15 +50,20 @@
 					$id = $_GET['id'];
 					$model = new Model();
 					$editUser = $model->getUserById($id);
-					$editUser = $editUser->fetch_assoc();
+					$oldUser = $editUser->fetch_assoc();
 					if(isset($_POST['edit_user'])) {
 						$username = $_POST['username'];
+						$avatar = $oldUser['avatar'];
+						if($_FILES['$avatar']['error'] == 0) {
+							$avatar = $_FILES['$avatar']['name'];
+							move_uploaded_file($_FILES['$avatar']['tmp_name'], 'uploads/user'.$avatar);
+						}
 						$model = new Model();
-						if($model->editUser($id,$username) === TRUE) {
+						if($model->editUser($id,$username,$avatar) === TRUE) {
 							header('Location : index.php?action=user');
 						}
 					}
-					include 'view/user/list_user.php';
+					include 'view/user/edit_user.php';
 					break;	
 					/*
 						PORDUCTS
@@ -68,8 +78,12 @@
 					if(isset($_POST['add_products'])) {
 						$name_product = $_POST['name_product'];
 						$description = $_POST['description'];
-						$image = $_POST['image'];
 						$price = $_POST['price'];
+						$image = "default.png";
+						if($_FILES['image']['error'] == 0) {
+							$image = $_FILES['image']['name'];
+							move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/products/'.$image);
+						}
 						$model = new Model();
 						if ($model->addProducts($name_product,$description,$image,$price) === TRUE) {
 							header('Location: index.php?action=product');
@@ -80,26 +94,30 @@
 				case 'edit_product':
 					$id = $_GET['id'];
 					$model = new Model();
-					$editProducts = $model->getProductById();
-					$editProducts = $listProducts->fetch_assoc();
-					if(isset($_POST['edit_product'])) {
-						$name_product = $_POST['name_product'];
+					$editProducts = $model->getProductById($id);
+					$oldProducts = $editProducts ->fetch_assoc();
+					if (isset($_POST['edit_products'])) {
+						$title = $_POST['title'];
 						$description = $_POST['description'];
 						$price = $_POST['price'];
-						$model = new Model();
-						if($model->editProducts($name_product,$description,$image,$price) === TRUE) {
-							header('Location: index.php?action=product');
+						$image = $oldProducts['image'];
+						if($_FILES['image']['error'] == 0) {
+							$image = $_FILES['image']['name'];
+							move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/products/'.$image);
 						}
-					}	
-					include 'view/products/list_products.php';
-					break;	
+						$model = new Model();
+						if ($model ->editProducts($id, $title, $description, $price)===TRUE) {
+							header("Location:index.php?action=products");
+						}
+					}
+					include 'view/products/edit_products.php';
+					break;
 				case 'delete_product':
 					$id = $_GET['id'];
 					$model = new Model();
-					if($model->deleteProducts($id) === TRUE ) {
-						header('Location: index.php?action=product');
-					}
-					include 'view/products/list_products.php';
+					if ($model->deleteProducts($id) === TRUE) {
+						header("Location: index.php?action=user");
+					}	
 					break;	
 				default:
 					break;

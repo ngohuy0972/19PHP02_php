@@ -30,8 +30,8 @@
 			return mysqli_query($this->connect_database(),$sql);
 		}
 
-		function editUser($id,$username) {
-			$sql = "UPDATE user SET username = '$username', password = '$password', avatar = '$image'";
+		function editUser($id,$username,$avatar) {
+			$sql = "UPDATE user SET username = '$username', avatar = '$avatar' WHERE id = '$id";
 			return mysqli_query($this->connect_database(),$sql);
 		}
 
@@ -57,8 +57,8 @@
 			return mysqli_query($this->connect_database(),$sql);
 		}
 
-		function editProducts($name_product,$description,$image,$price) {
-			$sql = "UPDATE products SET name_product = '$name_product', description = '$description', image = '$image', price = '$price' ";
+		function editProducts($name_product,$description,$price) {
+			$sql = "UPDATE products SET name_product = '$name_product', description = '$description', price = '$price' ";
 			return mysqli_query($this->connect_database(),$sql);
 		}
 

@@ -2,7 +2,7 @@
 <table>
 	<thead>
 		<tr>
-			<th>List Products</th>
+			<th>List Products</th>	
 		</tr>
 	</thead>
 	<tbody>
@@ -17,7 +17,7 @@
 		</tr>
 <?php 
 	while($products = $listProducts->fetch_assoc()){
-		$id = $_GET['id'];
+		$id = $products['id'];
 ?>
 		<tr>
 			<td><?php echo $products['id'] ?></td>
