@@ -57,8 +57,8 @@
 			return mysqli_query($this->connect_database(),$sql);
 		}
 
-		function editProducts($name_product,$description,$price) {
-			$sql = "UPDATE products SET name_product = '$name_product', description = '$description', price = '$price' ";
+		function editProducts($id,$name_product,$description,$price) {
+			$sql = "UPDATE products SET name_product = '$name_product', description = '$description', price = '$price' WHERE id = '$id";
 			return mysqli_query($this->connect_database(),$sql);
 		}
 
