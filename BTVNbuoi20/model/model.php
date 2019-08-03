@@ -7,7 +7,7 @@
 			echo "This is Home page";
 		}
 
-		function Login($username,$password) {
+		function Check_Login($username,$password) {
 			$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password' ";
 			return mysqli_query($this->connect_database(),$sql);
 		}
