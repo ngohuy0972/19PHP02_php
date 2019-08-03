@@ -1,4 +1,4 @@
-<form action="index.php?action=add_product" method="POST">
+<form action="index.php?action=add_product" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
 	<p>Username
 		<input type="text" name="name_product">
 	</p>

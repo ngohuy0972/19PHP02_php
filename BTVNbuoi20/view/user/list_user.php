@@ -1,4 +1,5 @@
-<link rel="stylesheet" type="text/css" href="css/list_display.css">
+<link rel="stylesheet" href="webroot/css/list_display.css">
+<link rel="stylesheet" href="webroot/css/style_img.css">
 <table>
 	<thead>
 		<tr>
@@ -19,7 +20,7 @@
 		<tr>
 			<td><?php echo $user['id'] ?></td>
 			<td><?php echo $user['username'] ?></td>
-			<td><img src="uploads/<?php echo $user['image'] ?>"></td>
+			<td><img src="uploads/user/<?php echo $user['avatar'] ?>"></td>
 			<td><a href="index.php?action=edit_user&id=<?php echo $id; ?>">Edit</a>	|	<a href="index.php?action=delete_user&id=<?php echo $id; ?>">Delete</a></td>
 		</tr>
 	</tbody>

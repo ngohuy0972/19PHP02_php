@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/list_display.css">
+<link rel="stylesheet" href="webroot/css/style_img.css">
 <table>
 	<thead>
 		<tr>
@@ -23,10 +23,10 @@
 			<td><?php echo $products['id'] ?></td>
 			<td><?php echo $products['name_product'] ?></td>
 			<td><?php echo $products['description'] ?></td>
-			<td><img src="uploads/<?php echo $products['image']; ?>"></td>
+			<td><img src="uploads/products/<?php echo $products['image']; ?>"></td>
 			<td><?php echo $products['price'] ?></td>
 			<td><?php echo $products['created'] ?></td>
-			<td><a href="index.php?action=edit_product&id=<?php echo $id; ?>">Edit</a>	|	<a href="index.php?action=delete_product&id=<?php echo $id; ?>">Delete</a></td>
+			<td><a href="index.php?action=edit_product&id=<?php echo $id;?>">Edit</a>	|	<a href="index.php?action=delete_product&id=<?php echo $id; ?>">Delete</a></td>
 		</tr>
 <?php 
 	}

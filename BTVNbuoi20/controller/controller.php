@@ -9,10 +9,36 @@
 					$model = new Model();
 					$model->Home();
 					break;
-				case 'contact':
-					$model = new Model();
-					$model->Contact();
+				/*
+					LOGIN		
+				*/
+				case 'login' :
+
+					if(isset($_POST['Login'])) {
+						$username = $_POST['username'];
+						$password = $_POST['password'];
+						$model = new Model();
+						if($username == '' || $password == '') {
+							echo "Do not blank Username or Password";
+						} else if($username == 'admin' && $password == '123456'){
+							echo "Login Sucessfully";
+						} else {
+							echo "Login Failed";
+						}
+					}
+
+					include'login_user/login.php';
 					break;
+				/*
+					LOGOUT	
+				*/	
+				case 'logout' :
+					session_start();
+
+					unset($_SESSION['Login']);
+					include 'login_user/logout.php';
+					break;
+
 					/*
 						USER
 					*/
@@ -28,17 +54,46 @@
 						$username = $_POST['username'];
 						$password = $_POST['password'];
 						$avatar = "default.png";
-						if($_FILES['$avatar']['error'] == 0) {
-							$avatar = $_FILES['$avatar']['name'];
-							move_uploaded_file($_FILES['$avatar']['tmp_name'], 'uploads/user'.$avatar);
+						// var_dump($avatar);
+						// exit;
+						if($_FILES['avatar']['error'] == 0) {
+							$avatar = $_FILES['avatar']['name'];
+							move_uploaded_file($_FILES['avatar']['tmp_name'], 'uploads/user/'.$avatar);
+							// var_dump($avatar);
+							// exit;
 						}
 						$model = new Model();
-						if ($model->addUser($username, $password) === TRUE) {
+						if ($model->addUser($username, $password, $avatar) === TRUE) {
 							header("Location: index.php?action=user");
 						}	
 					}
 					include 'view/user/add_user.php';
 					break;
+				
+				case 'edit_user':
+					$id = $_GET['id'];
+					$model = new Model();
+					$editUser = $model->getUserById($id);
+					$oldUser = $editUser->fetch_assoc();
+					$updated = Date('Y-m-d h:i:s');
+					//
+					if (isset($_POST['edit_user'])) {
+						$username = $_POST['username'];
+						$avatar = $oldUser['avatar'];
+						// upload image
+						if($_FILES['avatar']['error'] == 0) {
+							$avatar = $_FILES['avatar']['name'];
+							move_uploaded_file($_FILES['avatar']['tmp_name'], 'uploads/user/'.$avatar);
+							// var_dump($avatar);
+							// exit;
+						}
+						$model = new Model();
+						if($model->editUser($id, $username, $avatar) === TRUE) {
+							header("Location: index.php?action=user");
+						}
+					}
+					include 'view/user/edit_user.php';
+					break;	
 				case 'delete_user':
 					$id = $_GET['id'];
 					$model = new Model();
@@ -46,25 +101,6 @@
 						header("Location: index.php?action=user");
 					}	
 					break;
-				case 'edit_user':
-					$id = $_GET['id'];
-					$model = new Model();
-					$editUser = $model->getUserById($id);
-					$oldUser = $editUser->fetch_assoc();
-					if(isset($_POST['edit_user'])) {
-						$username = $_POST['username'];
-						$avatar = $oldUser['avatar'];
-						if($_FILES['$avatar']['error'] == 0) {
-							$avatar = $_FILES['$avatar']['name'];
-							move_uploaded_file($_FILES['$avatar']['tmp_name'], 'uploads/user'.$avatar);
-						}
-						$model = new Model();
-						if($model->editUser($id,$username,$avatar) === TRUE) {
-							header('Location : index.php?action=user');
-						}
-					}
-					include 'view/user/edit_user.php';
-					break;	
 					/*
 						PORDUCTS
 					*/
@@ -80,6 +116,8 @@
 						$description = $_POST['description'];
 						$price = $_POST['price'];
 						$image = "default.png";
+						// var_dump($image);
+						// exit;
 						if($_FILES['image']['error'] == 0) {
 							$image = $_FILES['image']['name'];
 							move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/products/'.$image);
@@ -96,8 +134,9 @@
 					$model = new Model();
 					$editProducts = $model->getProductById($id);
 					$oldProducts = $editProducts ->fetch_assoc();
+					$updated = Date('Y-m-d h:i:s');
 					if (isset($_POST['edit_products'])) {
-						$title = $_POST['title'];
+						$name_product = $_POST['name_product'];
 						$description = $_POST['description'];
 						$price = $_POST['price'];
 						$image = $oldProducts['image'];
@@ -106,8 +145,8 @@
 							move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/products/'.$image);
 						}
 						$model = new Model();
-						if ($model ->editProducts($id, $title, $description, $price)===TRUE) {
-							header("Location:index.php?action=products");
+						if($model->editProducts($id,$name_product,$description,$image,$price) === TRUE) {
+							header("Location: index.php?action=product");
 						}
 					}
 					include 'view/products/edit_products.php';
@@ -115,10 +154,10 @@
 				case 'delete_product':
 					$id = $_GET['id'];
 					$model = new Model();
-					if ($model->deleteProducts($id) === TRUE) {
-						header("Location: index.php?action=user");
-					}	
-					break;	
+					if($model->deleteProducts($id) === TRUE) {
+						header("Location: index.php?action=product");
+					}
+					break;
 				default:
 					break;
 			}
