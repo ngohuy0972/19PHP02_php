@@ -8,37 +8,7 @@
 				case 'home':
 					$model = new Model();
 					$model->Home();
-					break;
-				/*
-					LOGIN		
-				*/
-				case 'login' :
-
-					if(isset($_POST['Login'])) {
-						$username = $_POST['username'];
-						$password = $_POST['password'];
-						$model = new Model();
-						if($username == '' || $password == '') {
-							echo "Do not blank Username or Password";
-						} else if($username == 'admin' && $password == '123456'){
-							echo "Login Sucessfully";
-						} else {
-							echo "Login Failed";
-						}
-					}
-
-					include'login_user/login.php';
-					break;
-				/*
-					LOGOUT	
-				*/	
-				case 'logout' :
-					session_start();
-
-					unset($_SESSION['Login']);
-					include 'login_user/logout.php';
-					break;
-
+					break; 	 
 					/*
 						USER
 					*/
